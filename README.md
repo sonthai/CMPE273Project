@@ -1,8 +1,12 @@
 # CMPE273Project
 ## Package dependency requirements
+These libabry can be installed into the system or virtualenv
 #### Installing slackclient
 - pip install slackclient
 - Slack tutorial: https://www.fullstackpython.com/blog/build-first-slack-bot-python.html
+
+Follow the tutorial to obtain SLACK_BOT_TOKEN and BOT_ID then put them in credentials.cfg file
+
 #### Installing quepy and nltk
 - pip install quepy
 - quepy --version
