@@ -11,20 +11,20 @@ class IsTime(FixedType):
     fixedtype = "table:Time"
 
 
-class FinalExamTimeOf(FixedRelation):
-    relation = "field:final_time"
+class HasFields(FixedDataRelation):
+    relation = "key:fields"
 
 
 class HasCourse(FixedDataRelation):
     relation = "key:course"
 
-class ClassTimeOf(FixedRelation):
-    relation = "field:start,end"
-
 
 class IsLocation(FixedType):
     fixedtype = "table:Location"
 
+class IsPerson(FixedType):
+    fixedtype = "table:Person"
 
-class FinalExamLocationOf(FixedRelation):
-    relation = "field:final_exam_location"
+
+class IsInfo(FixedType):
+    fixedtype = "table:Info"

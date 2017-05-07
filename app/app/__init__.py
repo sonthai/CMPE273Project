@@ -4,4 +4,8 @@
 Init for app quepy.
 """
 
-from basic import *
+from time import *
+from location import *
+from instructor import *
+from class_info import *
+

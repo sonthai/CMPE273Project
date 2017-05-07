@@ -9,11 +9,13 @@ class Query:
         return m.group(1)
 
     def get_query_field(self, sparql):
-        regex = 'field:(\S+)'
+        regex = 'key:fields "(.*)"'
         m = re.search(regex, str(sparql))
         fields = m.group(1).split(",")
-        print m.group(1)
-        return ",".join(fields)
+        fieldList = []
+        for field in fields:
+            fieldList.append("_".join(field.split(" ")))
+        return ",".join(fieldList)
 
     def get_query_condition(self, sparql):
         regex = 'key:(\w+) keyword:(.*).'
