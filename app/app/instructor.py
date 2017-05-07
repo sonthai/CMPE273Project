@@ -16,7 +16,8 @@ class InstructorQuestion(QuestionTemplate):
             Pos("IN") + Lemmas("whom be") + Course() + Lemma("taught") + Question(Pos("."))
 
     def interpret(self, match):
-        instructor = IsPerson() + match.course + HasFields('instructor'.decode('utf-8'))
+        answer = "The instructor for %s is %s"
+        instructor = IsPerson() + match.course + HasFields('instructor'.decode('utf-8')) + HasAnswer(answer.decode('utf-8'))
         return instructor
 
 
@@ -29,5 +30,6 @@ class InstructorEmailQuestion(QuestionTemplate):
             Lemmas("which email be ") + Lemma("use") + Pos("TO") + Lemma("communicate") + Pos("IN") + Lemma("instructor") + Pos("IN") + Course() + Question(Pos("."))
 
     def interpret(self, match):
-        email = IsInfo() + match.course + HasFields('email'.decode('utf-8'))
+        answer = "The instructor's email of %s is %s"
+        email = IsInfo() + match.course + HasFields('email'.decode('utf-8')) + HasAnswer(answer.decode('utf-8'))
         return email

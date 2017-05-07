@@ -18,7 +18,9 @@ class ExamQuestion(QuestionTemplate):
     regex = opening + Question(Pos("DT")) + exam + Pos("IN") + Course() + Question(Pos("."))
 
     def interpret(self, match):
-        exam_time = IsTime() + match.course + HasFields(match.exam.tokens)
+        exam = "The %s" % match.exam.tokens
+        answer = exam + " for %s are %s"
+        exam_time = IsTime() + match.course + HasFields(match.exam.tokens) + HasAnswer(answer.decode('utf-8'))
         return exam_time
 
 
@@ -31,7 +33,8 @@ class ClassTimeQuestion(QuestionTemplate):
     regex = Lemmas("what be") + Question(Pos("DT")) + classTime + Pos("IN") + Course() + Question(Pos("."))
 
     def interpret(self, match):
-        class_time = IsTime() + match.course + HasFields(match.classTime.tokens)
+        answer = "The class time for %s is %s"
+        class_time = IsTime() + match.course + HasFields(match.classTime.tokens) + HasAnswer(answer.decode('utf-8'))
         return class_time
 
 
@@ -43,7 +46,7 @@ class InstructorOfficeHour(QuestionTemplate):
     regex = Plus(Lemmas("what time") | Lemma("when")) + Lemma("do") + Question(Pos("DT")) + Course() + Lemma("instructor") \
             + Lemma("have") + Lemmas("office hours") + Question(Pos("."))
 
-
     def interpret(self, match):
-        instructor_office_hour = IsTime() + match.course + HasFields('office hour'.decode('utf-8'))
+        answer = "The instructor's office hours for %s is %s"
+        instructor_office_hour = IsTime() + match.course + HasFields('office hour'.decode('utf-8')) + HasAnswer(answer.decode('utf-8'))
         return instructor_office_hour

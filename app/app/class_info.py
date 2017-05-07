@@ -13,5 +13,7 @@ class ClassPrerequisiteQuestion(QuestionTemplate):
     regex = Lemmas("what be") + Question(Pos("DT")) + prerequisite + Pos("IN") + Course() + Question(Pos("."))
 
     def interpret(self, match):
-        prerequisite = IsInfo() + match.course + HasFields('prerequisite'.decode('utf-8'))
+        answer = "The prerequisites for %s are %s"
+        prerequisite = IsInfo() + match.course + HasFields('prerequisite'.decode('utf-8')) \
+                       + HasAnswer(answer.decode('utf-8'))
         return prerequisite

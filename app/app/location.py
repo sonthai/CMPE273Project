@@ -17,7 +17,9 @@ class FinalExamLocationQuestion(QuestionTemplate):
     regex = opening + Question(Pos("DT")) + exam + Pos("IN") + Course() + Question(Pos("."))
 
     def interpret(self, match):
-        exam_location = IsLocation() + match.course + HasFields(match.exam.tokens)
+        exam = "The %s" % match.exam.tokens
+        answer = exam + " for %s are %s"
+        exam_location = IsLocation() + match.course + HasFields(match.exam.tokens) + HasAnswer(answer.decode('utf-8'))
         return exam_location
 
 
@@ -34,7 +36,8 @@ class ClassLocationQuestion(QuestionTemplate):
             Question(Pos("IN")) + Lemmas("which location be") + Course() + Question(Lemma("locate")) + Question(Pos("."))
 
     def interpret(self, match):
-        class_location = IsLocation() + match.course + HasFields('classroom'.decode('utf-8'))
+        answer = "The classroom for %s is %s"
+        class_location = IsLocation() + match.course + HasFields('classroom'.decode('utf-8')) + HasAnswer(answer.decode('utf-8'))
         return class_location
 
 
@@ -47,5 +50,6 @@ class InstructorOfficeLocation(QuestionTemplate):
     regex = Pos("WP") + Lemma("be") + Question(Pos("DT")) + Lemma("office") + Question(Lemma("location")) + Pos("IN") + Course()  + Lemma("instructor") + Question(Lemma("locate")) + Question(Pos("."))
 
     def interpret(self, match):
-        instructor_office = IsLocation() + match.course + HasFields('office_location'.decode('utf-8'))
+        answer = "The instructor's office for %s is %s"
+        instructor_office = IsLocation() + match.course + HasFields('office_location'.decode('utf-8')) + HasAnswer(answer.decode('utf-8'))
         return instructor_office

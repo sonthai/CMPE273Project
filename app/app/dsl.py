@@ -28,3 +28,6 @@ class IsPerson(FixedType):
 
 class IsInfo(FixedType):
     fixedtype = "table:Info"
+
+class HasAnswer(FixedDataRelation):
+    relation = "key:answer"
