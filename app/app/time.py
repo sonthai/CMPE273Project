@@ -20,7 +20,7 @@ class ExamQuestion(QuestionTemplate):
     def interpret(self, match):
         exam = "The %s" % match.exam.tokens
         answer = exam + " for %s are %s"
-        exam_time = IsTime() + match.course + HasFields(match.exam.tokens) + HasAnswer(answer.decode('utf-8'))
+        exam_time = IsExamRelated() + match.course + HasFields(match.exam.tokens) + HasAnswer(answer.decode('utf-8'))
         return exam_time
 
 
@@ -34,7 +34,7 @@ class ClassTimeQuestion(QuestionTemplate):
 
     def interpret(self, match):
         answer = "The class time for %s is %s"
-        class_time = IsTime() + match.course + HasFields(match.classTime.tokens) + HasAnswer(answer.decode('utf-8'))
+        class_time = IsClassRelated() + match.course + HasFields(match.classTime.tokens) + HasAnswer(answer.decode('utf-8'))
         return class_time
 
 
@@ -48,5 +48,5 @@ class InstructorOfficeHour(QuestionTemplate):
 
     def interpret(self, match):
         answer = "The instructor's office hours for %s is %s"
-        instructor_office_hour = IsTime() + match.course + HasFields('office hour'.decode('utf-8')) + HasAnswer(answer.decode('utf-8'))
+        instructor_office_hour = IsInstructorInfoRelated() + match.course + HasFields('office_hour'.decode('utf-8')) + HasAnswer(answer.decode('utf-8'))
         return instructor_office_hour

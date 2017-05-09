@@ -14,6 +14,6 @@ class ClassPrerequisiteQuestion(QuestionTemplate):
 
     def interpret(self, match):
         answer = "The prerequisites for %s are %s"
-        prerequisite = IsInfo() + match.course + HasFields('prerequisite'.decode('utf-8')) \
+        prerequisite = IsClassRelated() + match.course + HasFields('prerequisite'.decode('utf-8')) \
                        + HasAnswer(answer.decode('utf-8'))
         return prerequisite

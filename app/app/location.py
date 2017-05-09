@@ -19,7 +19,7 @@ class FinalExamLocationQuestion(QuestionTemplate):
     def interpret(self, match):
         exam = "The %s" % match.exam.tokens
         answer = exam + " for %s are %s"
-        exam_location = IsLocation() + match.course + HasFields(match.exam.tokens) + HasAnswer(answer.decode('utf-8'))
+        exam_location = IsExamRelated() + match.course + HasFields(match.exam.tokens) + HasAnswer(answer.decode('utf-8'))
         return exam_location
 
 
@@ -37,7 +37,7 @@ class ClassLocationQuestion(QuestionTemplate):
 
     def interpret(self, match):
         answer = "The classroom for %s is %s"
-        class_location = IsLocation() + match.course + HasFields('classroom'.decode('utf-8')) + HasAnswer(answer.decode('utf-8'))
+        class_location = IsClassRelated() + match.course + HasFields('classroom'.decode('utf-8')) + HasAnswer(answer.decode('utf-8'))
         return class_location
 
 
@@ -47,9 +47,12 @@ class InstructorOfficeLocation(QuestionTemplate):
             "Where is the office of cmpe 273 instructor?"
             "Where is the office of cmpe 273 instructor located?"
     """
-    regex = Pos("WP") + Lemma("be") + Question(Pos("DT")) + Lemma("office") + Question(Lemma("location")) + Pos("IN") + Course()  + Lemma("instructor") + Question(Lemma("locate")) + Question(Pos("."))
+    regex = Lemmas("what be") + Question(Pos("DT")) + Lemma("office") + Question(Lemma("location")) + Pos("IN") + Course() + Lemma("instructor")  + Question(Pos(".")) | \
+            Lemmas("where be") + Question(Pos("DT")) + Lemma("office") + Pos("IN") + Course() + Lemma("instructor") + Question(Lemma("locate")) + Question(Pos("."))
+
+    #Pos("WP") + Lemma("be") + Question(Pos("DT")) + Lemma("office") + Question(Lemma("location")) + Pos("IN") + Course()  + Lemma("instructor") + Question(Lemma("locate")) + Question(Pos("."))
 
     def interpret(self, match):
         answer = "The instructor's office for %s is %s"
-        instructor_office = IsLocation() + match.course + HasFields('office_location'.decode('utf-8')) + HasAnswer(answer.decode('utf-8'))
+        instructor_office = IsInstructorInfoRelated() + match.course + HasFields('office_location'.decode('utf-8')) + HasAnswer(answer.decode('utf-8'))
         return instructor_office

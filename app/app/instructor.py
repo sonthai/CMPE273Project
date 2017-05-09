@@ -17,7 +17,7 @@ class InstructorQuestion(QuestionTemplate):
 
     def interpret(self, match):
         answer = "The instructor for %s is %s"
-        instructor = IsPerson() + match.course + HasFields('instructor'.decode('utf-8')) + HasAnswer(answer.decode('utf-8'))
+        instructor = IsInstructorInfoRelated() + match.course + HasFields('name'.decode('utf-8')) + HasAnswer(answer.decode('utf-8'))
         return instructor
 
 
@@ -31,5 +31,5 @@ class InstructorEmailQuestion(QuestionTemplate):
 
     def interpret(self, match):
         answer = "The instructor's email of %s is %s"
-        email = IsInfo() + match.course + HasFields('email'.decode('utf-8')) + HasAnswer(answer.decode('utf-8'))
+        email = IsInstructorInfoRelated() + match.course + HasFields('email'.decode('utf-8')) + HasAnswer(answer.decode('utf-8'))
         return email

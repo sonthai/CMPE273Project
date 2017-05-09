@@ -2,6 +2,7 @@ import ConfigParser
 import os
 import quepy
 from app.query import *
+import time
 
 from slackclient import SlackClient
 
@@ -15,28 +16,25 @@ BOT_ID = config.get('default', 'BOT_ID')
 
 # constants
 AT_BOT = "<@" + BOT_ID + ">"
-EXAMPLE_COMMAND = "do"
+#EXAMPLE_COMMAND = "do"
 
 # instantiate Slack & Twilio clients
 slack_client = SlackClient(SLACK_BOT_TOKEN)
 
-
-def handle_command():#command, channel):
+def handle_command(command, channel):
     """
         Receives commands directed at the bot and determines if they
         are valid commands. If so, then acts on the commands. If not,
         returns back what it needs for clarification.
     """
-    response = "Not sure what you mean. Use the *" + EXAMPLE_COMMAND + \
-               "* command with numbers, delimited by spaces."
-    #if command.startswith(EXAMPLE_COMMAND):
-    target, query, metadata = app.get_query("at which location is the final for cmpe 202?")
+    #target, query, metadata = app.get_query("Where is the office of cmpe 273 instructor located?")
     #print "Query ", query
-    queryStr =  Query(str(query)).build_query_str()
-    print "My sql query ", queryStr
-    #response = "Sure...write some more code then I can do that!"
-    #slack_client.api_call("chat.postMessage", channel=channel,
-     #                     text=response, as_user=True)
+    print command
+    target, query, metadata = app.get_query(str(command))
+    print "Query " , query
+    reply =  Query(str(query)).query_for_answer()
+    slack_client.api_call("chat.postMessage", channel=channel,
+                         text=reply, as_user=True)
 
 
 def parse_slack_output(slack_rtm_output):
@@ -56,7 +54,6 @@ def parse_slack_output(slack_rtm_output):
 
 
 if __name__ == "__main__":
-    """
     READ_WEBSOCKET_DELAY = 1 # 1 second delay between reading from firehose
     if slack_client.rtm_connect():
         print("StarterBot connected and running!")
@@ -66,7 +63,5 @@ if __name__ == "__main__":
                 handle_command(command, channel)
             time.sleep(READ_WEBSOCKET_DELAY)
     else:
-	print("StarterBot is not connected!!!");
-	"""
-    handle_command()#command, channel)
+	    print("StarterBot is not connected!!!");
 
