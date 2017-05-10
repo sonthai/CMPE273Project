@@ -16,7 +16,6 @@ BOT_ID = config.get('default', 'BOT_ID')
 
 # constants
 AT_BOT = "<@" + BOT_ID + ">"
-#EXAMPLE_COMMAND = "do"
 
 # instantiate Slack & Twilio clients
 slack_client = SlackClient(SLACK_BOT_TOKEN)
@@ -32,10 +31,10 @@ def handle_command(command, channel):
     print command
     target, query, metadata = app.get_query(str(command))
     print "Query " , query
-    if query == None:
+    if query is None:
         reply = "Unsupported question: %s " % str(command)
     else:
-        reply =  Query(str(query)).query_for_answer()
+        reply = Query(str(query)).query_for_answer()
     slack_client.api_call("chat.postMessage", channel=channel,
                          text=reply, as_user=True)
 

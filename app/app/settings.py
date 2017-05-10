@@ -8,7 +8,7 @@ Settings.
 LANGUAGE = "sparql"
 
 # NLTK config
-NLTK_DATA_PATH = ['/Users/sonthai/Desktop/CMPE273Project/app/nltk_data/']  # List of paths with NLTK data
+NLTK_DATA_PATH = []  # List of paths with NLTK data Ex: '/Users/sonthai/Desktop/CMPE273Project/app/nltk_data/'
 
 # Encoding config
 DEFAULT_ENCODING = "utf-8"

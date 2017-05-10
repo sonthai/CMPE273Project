@@ -23,7 +23,10 @@ def handler(event, context):
 
     if ("Item" in response):
         item = response["Item"]
-        answer = response_format % (course, item[field])
+        data = []
+        for f in item[field]:
+            data.append(f)
+        answer = response_format % (course, '\n'.join(data))
     else:
         answer = 'Data are not available. Please try again later!'
 
