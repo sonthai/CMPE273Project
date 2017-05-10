@@ -27,14 +27,14 @@ class ExamQuestion(QuestionTemplate):
 class ClassTimeQuestion(QuestionTemplate):
     """
         Ex: "What is the class time for cmpe 273?"
-            "What are the class days for cmpe 273?"
+            "When is the class for cmpe 273?"
     """
-    classTime = Group(Plus(Lemmas("class time") | Lemmas("class days")), "classTime")
-    regex = Lemmas("what be") + Question(Pos("DT")) + classTime + Pos("IN") + Course() + Question(Pos("."))
+    classTime = Group(Lemma("class") + Question(Lemma("time")), "classTime")
+    regex = (Lemmas("what be") | Lemmas("when be")) + Question(Pos("DT")) + classTime + Pos("IN") + Course() + Question(Pos("."))
 
     def interpret(self, match):
         answer = "The class time for %s is %s"
-        class_time = IsClassRelated() + match.course + HasFields(match.classTime.tokens) + HasAnswer(answer.decode('utf-8'))
+        class_time = IsClassRelated() + match.course + HasFields('class time'.decode('utf-8')) + HasAnswer(answer.decode('utf-8'))
         return class_time
 
 

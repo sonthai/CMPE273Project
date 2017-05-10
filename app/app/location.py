@@ -19,7 +19,7 @@ class FinalExamLocationQuestion(QuestionTemplate):
     def interpret(self, match):
         exam = "The %s" % match.exam.tokens
         answer = exam + " for %s are %s"
-        exam_location = IsExamRelated() + match.course + HasFields(match.exam.tokens) + HasAnswer(answer.decode('utf-8'))
+        exam_location = IsExamRelated() + match.course + HasFields(match.exam.tokens + " location") + HasAnswer(answer.decode('utf-8'))
         return exam_location
 
 
@@ -49,8 +49,6 @@ class InstructorOfficeLocation(QuestionTemplate):
     """
     regex = Lemmas("what be") + Question(Pos("DT")) + Lemma("office") + Question(Lemma("location")) + Pos("IN") + Course() + Lemma("instructor")  + Question(Pos(".")) | \
             Lemmas("where be") + Question(Pos("DT")) + Lemma("office") + Pos("IN") + Course() + Lemma("instructor") + Question(Lemma("locate")) + Question(Pos("."))
-
-    #Pos("WP") + Lemma("be") + Question(Pos("DT")) + Lemma("office") + Question(Lemma("location")) + Pos("IN") + Course()  + Lemma("instructor") + Question(Lemma("locate")) + Question(Pos("."))
 
     def interpret(self, match):
         answer = "The instructor's office for %s is %s"
