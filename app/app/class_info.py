@@ -33,3 +33,19 @@ class UnitsQuestion(QuestionTemplate):
         answer = "The units awarded for %s is %s"
         units = IsClassRelated() + match.course + HasFields('units'.decode('utf-8')) + HasAnswer(answer.decode('utf-8'))
         return units
+
+
+class GradingQuestion(QuestionTemplate):
+    """
+        Ex: "How is the grading for cmpe 273"
+        Ex: "What is the grading like for cmpe 273"
+    """
+    grading = Group(Lemma("grading"), "grading")
+    regex = Lemmas("How be") + Question(Pos("DT")) + grading + Pos("IN") + Course() + Question(Pos(".")) | \
+    Lemmas("what be") + Question(Pos("DT")) + grading + Lemma("like") + Pos("IN") + Course() + Question(Pos("."))
+
+    def interpret(self, match):
+        answer = "%s has %s ."
+        grading = IsClassRelated() + match.course + HasFields('grading'.decode('utf-8')) \
+                       + HasAnswer(answer.decode('utf-8'))
+        return grading
