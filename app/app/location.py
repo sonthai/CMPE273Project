@@ -18,10 +18,26 @@ class FinalExamLocationQuestion(QuestionTemplate):
 
     def interpret(self, match):
         exam = "The %s" % match.exam.tokens
-        answer = exam + " for %s are %s"
+        answer = exam + " for %s is at %s"
         exam_location = IsExamRelated() + match.course + HasFields(match.exam.tokens + " location") + HasAnswer(answer.decode('utf-8'))
         return exam_location
 
+# class FinalExamTimeQuestion(QuestionTemplate):
+#     """
+#         Ex: "When is the final exam for cmpe 273?"
+#             "When is the midterm exam for cmpe 273?"
+#             "What time is the final exam for cmpe 273?"
+#             "What time is the midterm exam for cmpe 273?"
+#     """
+#     opening = Lemmas("when be") | (Question(Pos("IN")) + Lemmas("what time be"))
+#     exam = Group(Plus(Lemmas("final exam") | Lemmas("midterm exam")), "exam")
+#     regex = opening + Question(Pos("DT")) + exam + Pos("IN") + Course() + Question(Pos("."))
+#
+#     def interpret(self, match):
+#         exam = "The %s" % match.exam.tokens
+#         answer = exam + " for %s is at %s"
+#         exam_time = IsExamRelated() + match.course + HasFields(match.exam.tokens + " exam") + HasAnswer(answer.decode('utf-8'))
+#         return exam_time
 
 class ClassLocationQuestion(QuestionTemplate):
     """

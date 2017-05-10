@@ -38,11 +38,11 @@ class UnitsQuestion(QuestionTemplate):
 class GradingQuestion(QuestionTemplate):
     """
         Ex: "How is the grading for cmpe 273"
-        Ex: "What is the grading like for cmpe 273"
+        Ex: "What is the grading for cmpe 273"
     """
     grading = Group(Lemma("grading"), "grading")
     regex = Lemmas("How be") + Question(Pos("DT")) + grading + Pos("IN") + Course() + Question(Pos(".")) | \
-    Lemmas("what be") + Question(Pos("DT")) + grading + Lemma("like") + Pos("IN") + Course() + Question(Pos("."))
+    Lemmas("what be") + Question(Pos("DT")) + Lemma("grading") + Pos("IN") + Course() + Question(Pos("."))
 
     def interpret(self, match):
         answer = "%s has %s ."
@@ -53,11 +53,11 @@ class GradingQuestion(QuestionTemplate):
 class GradingPolicy(QuestionTemplate):
     """
         Ex: "What is the assignment breakdown for cmpe 273?"
-        Ex: "What is the grading policy like for cmpe 273"
+        Ex: "What is the grading policy for cmpe 273"
     """
-    gradingpolicy = Group(Lemma("grading"), "grading")
-    regex = Lemmas("What be") + Question(Pos("DT")) + grading + Pos("IN") + Course() + Question(Pos(".")) | \
-    Lemmas("what be") + Question(Pos("DT")) + gradingpolicy + Lemma("like") + Pos("IN") + Course() + Question(Pos("."))
+    gradingpolicy = Group(Lemma("gradingpolicy"), "gradingpolicy")
+    regex = Lemmas("What be") + Question(Pos("DT")) + Lemma("grading") + Lemma("policy") + Pos("IN") + Course() + Question(Pos(".")) | \
+    Lemmas("what be") + Question(Pos("DT")) + Lemma("assignment") + Lemma("breakdown") + Pos("IN") + Course() + Question(Pos("."))
 
     def interpret(self, match):
         answer = "%s has the following weightage: %s."

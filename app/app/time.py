@@ -19,7 +19,7 @@ class ExamQuestion(QuestionTemplate):
 
     def interpret(self, match):
         exam = "The %s" % match.exam.tokens
-        answer = exam + " for %s are %s"
+        answer = exam + " for %s is on %s"
         exam_time = IsExamRelated() + match.course + HasFields(match.exam.tokens) + HasAnswer(answer.decode('utf-8'))
         return exam_time
 
@@ -33,7 +33,7 @@ class ClassTimeQuestion(QuestionTemplate):
     regex = (Lemmas("what be") | Lemmas("when be")) + Question(Pos("DT")) + classTime + Pos("IN") + Course() + Question(Pos("."))
 
     def interpret(self, match):
-        answer = "The class time for %s is %s"
+        answer = "The class time for %s is at %s"
         class_time = IsClassRelated() + match.course + HasFields('class time'.decode('utf-8')) + HasAnswer(answer.decode('utf-8'))
         return class_time
 
@@ -47,6 +47,6 @@ class InstructorOfficeHour(QuestionTemplate):
             + Lemma("have") + Lemmas("office hours") + Question(Pos("."))
 
     def interpret(self, match):
-        answer = "The instructor's office hours for %s is %s"
+        answer = "The instructor for %s is available from %s"
         instructor_office_hour = IsInstructorInfoRelated() + match.course + HasFields('office_hour'.decode('utf-8')) + HasAnswer(answer.decode('utf-8'))
         return instructor_office_hour
