@@ -2,7 +2,7 @@ region: us-west-2
 
 function_name: class_syllabus_api
 handler: service.handler
-role: awslambdarole
+role: awslambda
 description: Class Syllabus API
 
 # if access key and secret are left blank, boto will use the credentials
