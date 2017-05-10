@@ -43,8 +43,9 @@ class Query:
             "answer": self.answer
         }
         response =  requests.post(self.rest_api_url, json=jsonStr)
+        result =  response.json()['response']
 
-        return str(response.json()['response'])
+        return result.encode('utf-8')
 
 
 

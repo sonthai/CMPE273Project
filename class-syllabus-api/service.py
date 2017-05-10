@@ -24,9 +24,12 @@ def handler(event, context):
     if ("Item" in response):
         item = response["Item"]
         data = []
-        for f in item[field]:
-            data.append(f)
-        answer = response_format % (course, '\n'.join(data))
+        if type(item[field]) is set:
+            for f in item[field]:
+                data.append(f)
+            answer = response_format % (course, '\n'.join(data))
+        else:
+            answer = response_format % (course, item[field])
     else:
         answer = 'Data are not available. Please try again later!'
 
