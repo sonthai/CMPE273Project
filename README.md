@@ -24,4 +24,4 @@ Follow the tutorial to obtain SLACK_BOT_TOKEN and BOT_ID then put them in creden
 
 ####Architecture of the system we implemented:
 
-![alt text](https://raw.githubusercontent.com/sonthai/CMPE273Project/architecture.png)
+![alt text](https://raw.githubusercontent.com/sonthai/CMPE273Project/blob/master/System%20Architect.png)
