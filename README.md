@@ -13,6 +13,14 @@ Follow the tutorial to obtain SLACK_BOT_TOKEN and BOT_ID then put them in creden
 - quepy nltkdata < specify path for directory to store nltk data>
 - Quepy installing instruction: http://quepy.readthedocs.io/en/latest/installation.html
 
+## Tools and teachnologies
+- Python 2.7
+- Slack API
+- Quepy framework
+- python-lambda librarty
+- NLTK library
+- DynamoDB, API Gateway, AWS Lambda
+
 ####Architecture of the system we implemented:
 
 ![alt text](https://raw.githubusercontent.com/sonthai/CMPE273Project/architecture.png)
