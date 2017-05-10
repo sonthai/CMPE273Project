@@ -32,7 +32,10 @@ def handle_command(command, channel):
     print command
     target, query, metadata = app.get_query(str(command))
     print "Query " , query
-    reply =  Query(str(query)).query_for_answer()
+    if query == None:
+        reply = "Unsupported question: %s " % str(command)
+    else:
+        reply =  Query(str(query)).query_for_answer()
     slack_client.api_call("chat.postMessage", channel=channel,
                          text=reply, as_user=True)
 

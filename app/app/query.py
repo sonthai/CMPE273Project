@@ -36,11 +36,6 @@ class Query:
         self.answer = self.get_answer(query)
 
     def query_for_answer(self):
-        #query_str = "select %s from %s where %s = '%s' " % (self.fields, self.table, self.key, self.keyword)
-        # temporary. Replace it wiht real answer
-        #data = "Finish 272"
-        #reply = self.answer % (self.keyword, data)
-        #return query_str, reply
         jsonStr = {
             'table': self.table,
             'field': self.fields,

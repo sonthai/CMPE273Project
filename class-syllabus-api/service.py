@@ -8,7 +8,6 @@ def handler(event, context):
     course = body.get("course")
     tableName =  body.get("table")
     field = body.get("field")
-    #condition = body.get("condition")
     response_format = body.get("answer")
 
     print "Course %s Table %s field %s " %(course, tableName, field)
@@ -20,10 +19,13 @@ def handler(event, context):
             'course': course
         }
     )
+    print response
 
-    item = response["Item"]
-    answer = response_format % (course, item[field])
-    print "Answer %s " % answer
+    if ("Item" in response):
+        item = response["Item"]
+        answer = response_format % (course, item[field])
+    else:
+        answer = 'Data are not available. Please try again later!'
 
     return {
         "status": 200,
