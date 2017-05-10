@@ -1,4 +1,4 @@
-#!/Users/Falcon/Documents/MyGitReps/CMPE273Project/slackbot/bin/python
+#!/Users/sonthai/Desktop/CMPE273Project/slackbot/bin/python
 
 # $Id: rst2xml.py 4564 2006-05-21 20:44:42Z wiemann $
 # Author: David Goodger <goodger@python.org>

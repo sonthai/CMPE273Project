@@ -1,4 +1,4 @@
-#!/Users/Falcon/Documents/MyGitReps/CMPE273Project/slackbot/bin/python
+#!/Users/sonthai/Desktop/CMPE273Project/slackbot/bin/python
 
 # Author: 
 # Contact: grubert@users.sf.net

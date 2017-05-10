@@ -1,4 +1,4 @@
-#!/Users/Falcon/Documents/MyGitReps/CMPE273Project/slackbot/bin/python
+#!/Users/sonthai/Desktop/CMPE273Project/slackbot/bin/python
 
 # $Id: rst2odt.py 5839 2009-01-07 19:09:28Z dkuhlman $
 # Author: Dave Kuhlman <dkuhlman@rexx.com>
