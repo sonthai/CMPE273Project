@@ -49,3 +49,18 @@ class GradingQuestion(QuestionTemplate):
         grading = IsClassRelated() + match.course + HasFields('grading'.decode('utf-8')) \
                        + HasAnswer(answer.decode('utf-8'))
         return grading
+
+class GradingPolicy(QuestionTemplate):
+    """
+        Ex: "What is the assignment breakdown for cmpe 273?"
+        Ex: "What is the grading policy like for cmpe 273"
+    """
+    gradingpolicy = Group(Lemma("grading"), "grading")
+    regex = Lemmas("What be") + Question(Pos("DT")) + grading + Pos("IN") + Course() + Question(Pos(".")) | \
+    Lemmas("what be") + Question(Pos("DT")) + gradingpolicy + Lemma("like") + Pos("IN") + Course() + Question(Pos("."))
+
+    def interpret(self, match):
+        answer = "%s has the following weightage: %s."
+        gradingpolicy = IsClassRelated() + match.course + HasFields('GradingPolicy'.decode('utf-8')) \
+                       + HasAnswer(answer.decode('utf-8'))
+        return gradingpolicy
